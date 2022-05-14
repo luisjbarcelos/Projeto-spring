@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Help Aluno</title>
+	<style>
+.painel {
+	text-align: center;
+}
+
+.formulario {
+	margin-top: 10%;
+	background-color: #F0F8FF;
+	width: 300px;
+	height: 200px;
+}
+
+.body {
+	background-color: #F0FFFF;
+}
+</style>
+</h:head>
+<h:body styleClass="body">
+
+	<p:growl id="message"/>
+
+	<center>
+		<h:form styleClass="formulario">
+
+			<div class="painel">
+				<h3 style="">Login-se</h3>
+				<p:inputText value="#{MBUsuario.nome}" placeholder="Usuário"
+					style="margin-bottom: 10px; width: 225px; height: 40px;" />
+				<br />
+
+				<p:password id="toggle" toggleMask="true" redisplay="true"
+					placeholder="Senha" value="#{MBUsuario.senha}" />
+				<br />
+				<div style="margin-top: 10px;">
+					<p:commandButton value="Entrar" style="margin-right: 10px" actionListener="#{MBUsuario.logar()}" update=":message"/>
+					<p:commandButton value="Cadastrar" onclick="PF('dlgCad').show()" />
+				</div>
+			</div>
+
+		</h:form>
+	</center>
+	<p:dialog header="Cadastro Usuário" widgetVar="dlgCad"
+		showEffect="scale" minimizable="true" maximizable="true" modal="true"
+		draggable="false">
+		<h:form>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Nome:" />
+				<p:inputText placeholder="Nome" value="#{MBUsuario.usuario.nome}" />
+
+				<p:outputLabel value="Email: " />
+				<p:inputText placeholder="Email" value="#{MBUsuario.usuario.email}" />
+
+				<p:outputLabel value="Telefone:" />
+				<p:inputMask placeholder="Telefone" mask="(99)99999-9999"
+					value="#{MBUsuario.usuario.telefone}" />
+
+				<p:outputLabel value="Senha:" />
+				<p:password id="turkishFeedback" feedback="true"
+					promptLabel="Coloque sua Senha" weakLabel="Fraca" goodLabel="Boa"
+					strongLabel="Forte" inline="true" redisplay="true"
+					toggleMask="true" value="#{MBUsuario.usuario.senha}" />
+
+				<p:outputLabel value="Confirme Sua Senha:" redisplay="true" />
+				<p:password toggleMask="true" redisplay="true"
+					value="#{MBUsuario.usuario.confirmaSenha}" />
+
+
+
+
+
+
+
+			</p:panelGrid>
+			
+			<div style="margin-top: 15px; ">
+			<p:selectBooleanCheckbox value="#{MBUsuario.usuario.professor}"
+				itemLabel="Professor" />
+
+			<p:selectBooleanCheckbox value="#{MBUsuario.usuario.aluno}"
+				itemLabel="Aluno" />
+				</div>
+				<br/>
+
+			<p:commandButton value="Cadastrar" oncomplete="PF('dlgCad').hide()"
+				style="margin-top: 20px;" actionListener="#{MBUsuario.cadastrar()}" update=":message" />
+
+
+		</h:form>
+	</p:dialog>
+
+</h:body>
+</html>
